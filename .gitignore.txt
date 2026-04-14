@@ -1,0 +1,3 @@
+# pasta a ignorar
+.spyproject
+__pycache__
