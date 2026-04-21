@@ -34,13 +34,13 @@ db = 'Airport airlines - original (com dados do csv).db'
 # ob = (0, "Terminal A", 1)
 
 # -------- Voo --------
-# from classes.voo import Voo
-# from classes.airport import Airport
-# from classes.airline import Airline
-# Airport.read('data/' + db)
-# Airline.read('data/' + db)
-# test_class = Voo
-# ob = (0, 1, 1, "2026-01-01", 150)
+from classes.voo import Voo
+from classes.airport import Airport
+from classes.airline import Airline
+Airport.read('data/' + db)
+Airline.read('data/' + db)
+test_class = Voo
+ob = (0, 1, 1, "2026-01-01", 150)
 
 # =========================
 
