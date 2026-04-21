@@ -11,13 +11,12 @@ class Voo(Gclass):
     pos = 0
     sortkey = ''
     # class attributes, identifier id, attribute must be the first on the list
-    att = ['_id', '_flight_date', '_ticket_cost', '_airport_id','_airline_id']
-    # Class header title
+    att = ['_id', '_airline_id', '_airport_id', '_flight_date', '_ticket_cost']
     header = 'Voo'
     # field description for use in, for example, input form
-    des = ['Id','Flight_date','Ticket_cost', 'Airport_id','Airline_id']
+    des = ['Id', 'Airline_id','Airport_id','Flight_date','Ticket_cost']
     # Constructor: Called when an object is instantiated
-    def __init__(self, id, flight_date, ticket_cost, airport_id, airline_id):
+    def __init__(self, id, airline_id, airport_id, flight_date, ticket_cost):
         super().__init__()
         # Object attributes
         # Check the order and product referential integrity
@@ -28,7 +27,7 @@ class Voo(Gclass):
             if airline_id in Airline.lst:
                 id = Voo.get_id(id)
                 self._id = int(id)
-                self._flight_date = flight_date
+                self._flight_date = str(flight_date)
                 self._ticket_cost = int(ticket_cost)
                 self._airport_id = int(airport_id)
                 self._airline_id = int(airline_id)
@@ -82,7 +81,7 @@ class Voo(Gclass):
     # flight_date property setter method
     @flight_date.setter
     def flight_date(self, flight_date):
-        self._flight_date = flight_date
+        self._flight_date = str(flight_date)
     
     # ticket_cost property getter method
     @property
@@ -94,3 +93,5 @@ class Voo(Gclass):
     def ticket_cost(self, ticket_cost):
         self._ticket_cost = int(ticket_cost)
     
+
+
