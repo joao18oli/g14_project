@@ -1,9 +1,5 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Apr 20 22:14:29 2026
+# Marta's class
 
-@author: Marta
-"""
 
 import datetime
 
