@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+#Rodrigo Paiva's class
 """
 Created on Tue Apr  7 11:41:01 2026
 
