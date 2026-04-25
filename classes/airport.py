@@ -1,4 +1,4 @@
-
+#classe realizada por Maria Carvalho
 from classes.gclass import Gclass
 class Airport(Gclass):
     obj=dict()
