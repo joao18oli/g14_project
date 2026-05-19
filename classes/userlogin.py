@@ -1,7 +1,4 @@
-"""
-@author: António Brito / Carlos Bragança
-(2025) #objective: class Userlogin
-"""""
+
 # Class User - generic version
 # import sys
 import bcrypt
