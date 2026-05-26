@@ -1,12 +1,10 @@
 from flask import Flask, render_template, request, session
-from classes.person import Person
 from datafile import filename
-from classes.customer import Customer
-from classes.product import Product
-from classes.customerorder import CustomerOrder
-from classes.orderproduct import OrderProduct
+from classes.airport import Airport
+from classes.airline import Airline
+from classes.terminal import Terminal
+from classes.voo import Voo
 from classes.userlogin import Userlogin
-
 prev_option = ""
 
 def apps_subform(cname=""):
