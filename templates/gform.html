@@ -1,38 +1,124 @@
 {% extends 'base.html' %}
-
-{% block title %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
-{% endblock %}
-
+{% block title %}{% endblock %}
 {% block content %}
-    <div class = "dados">
-        <img src="/static/images/{{cname}}.jpg" alt="{{cname}}" width="300" height="200">
-        <h1>{{cname}}</h1>
-        <br>
-        <button id="edit" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=edit'" class="button1">Edit</button>
-        <button id="delete" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=delete'" class="button1">Delete</button>
-        <button id="insert" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=insert'" class="button1">Insert</button>
-        <button id="save" type="submit" form="form" class = "button1" {{butedit}}>Save</button>
-        <button id="cancel" type="button" {{butedit}} onclick="window.location.href = '/gform/{{cname}}?option=cancel'" class="button1">Cancel</button>
-        <button id="exit" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=exit'" class="button1">Exit</button>
-        <br><br>
-            <form id="form" action="/gform/{{cname}}?option=save" method="post">
-                {% for key in att %}
+
+{% if cname == 'Voo' %}
+
+<!-- ── VOO: parallax fixo + card transparente ── -->
+<div style="position: relative; margin: -2rem; padding: 2rem; min-height: 85vh;
+     display: flex; align-items: center; justify-content: center; overflow: hidden;
+     background-image: url('/static/images/Voo.jpg');
+     background-attachment: fixed;
+     background-size: 85%;
+     background-position: center 70%;">
+
+    <div style="position: absolute; inset: 0; background: rgba(27,42,74,0.3);"></div>
+
+    <div style="position: relative; z-index: 1;
+         background: rgba(255,255,255,0.08);
+         backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
+         border: 1px solid rgba(255,255,255,0.25);
+         border-radius: 16px; padding: 2.5rem; width: 100%; max-width: 560px;
+         box-shadow: 0 8px 40px rgba(0,0,0,0.2);">
+
+        <h1 style="font-size: 24px; font-weight: 600; color: white; margin-bottom: 1.25rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.3); text-shadow: 0 2px 8px rgba(0,0,0,0.4);">
+            {{ cname }}
+        </h1>
+
+        <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+            <button id="edit" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=edit'" class="button1" style="flex:1;">✏️ Edit</button>
+            <button id="delete" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=delete'" class="button1" style="flex:1;">🗑 Delete</button>
+            <button id="insert" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=insert'" class="button1" style="flex:1;">＋ Insert</button>
+        </div>
+        <div style="display: flex; gap: 8px; margin-bottom: 1.75rem;">
+            <button id="save" type="submit" form="form" class="button1" {{butedit}} style="flex:1;">💾 Save</button>
+            <button id="cancel" type="button" {{butedit}} onclick="window.location.href = '/gform/{{cname}}?option=cancel'" class="button1" style="flex:1;">✕ Cancel</button>
+            <button id="exit" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=exit'" class="button1" style="flex:1;">← Exit</button>
+        </div>
+
+        <form id="form" action="/gform/{{cname}}?option=save" method="post">
+            {% for key in att %}
+                <div style="margin-bottom: 1rem;">
                     {% if loop.index == 1 %}
-                      <label for="{{key}}">{{des[loop.index-1]}}:</label>
-                      <input type="text" readonly id="{{key}}" name="{{key}}" value="{{obj[key]}}" size="4"/>
-                    {% else %}                    
-                      <label for="{{key}}">{{des[loop.index-1]}}:</label>
-                      <input type="text" {{butedit}} id="{{key}}" name="{{key}}" value="{{obj[key]}}" size="30"/>
+                        <label for="{{key}}" style="color: rgba(255,255,255,0.85);">{{des[loop.index-1]}}</label>
+                        <input type="text" readonly id="{{key}}" name="{{key}}" value="{{obj[key]}}" size="4"/>
+                    {% else %}
+                        <label for="{{key}}" style="color: rgba(255,255,255,0.85);">{{des[loop.index-1]}}</label>
+                        <input type="text" {{butedit}} id="{{key}}" name="{{key}}" value="{{obj[key]}}" size="30"/>
                     {% endif %}
-                    <br><br>
-                {% endfor %}
+                </div>
+            {% endfor %}
         </form>
-        <br>
-        <button id="first" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=first'" class="button1">First</button>
-        <button id="previous" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=previous'" class="button1">Previous</button>
-        <button id="next" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=next'" class="button1">Next</button>
-        <button id="last" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=last'" class="button1">Last</button>
+
+        <div style="display: flex; gap: 8px; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.3);">
+            <button id="first" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=first'" class="button1" style="flex:1;">⏮ First</button>
+            <button id="previous" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=previous'" class="button1" style="flex:1;">◀ Prev</button>
+            <button id="next" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=next'" class="button1" style="flex:1;">Next ▶</button>
+            <button id="last" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=last'" class="button1" style="flex:1;">Last ⏭</button>
+        </div>
     </div>
+</div>
+
+{% else %}
+
+<!-- ── AIRLINE / AIRPORT: duas colunas ── -->
+<div class="dados" style="padding: 0; overflow: hidden;">
+    <div style="display: flex; align-items: stretch; min-height: 480px;">
+
+        <!-- Coluna esquerda — imagem -->
+        <div style="width: 55%; min-width: 55%; position: relative; overflow: hidden;">
+            <img src="/static/images/{{cname}}.jpg" alt="{{cname}}"
+                 style="position: absolute; inset: 0; width: 120%; height: 120%; object-fit: contain;padding: 0px; object-position: center; left: -10%; top: -5%;
+                 {% if cname == 'Airport' %}object-position: center 20%;{% else %}object-position: 65% center;{% endif %}">
+
+            <!-- Gradiente + título -->
+            <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem;
+                        background: linear-gradient(to top, rgba(27,42,74,0.85) 0%, rgba(27,42,74,0.2) 60%, transparent 100%);">
+                <h1 style="font-size: 28px; font-weight: 600; color: white; margin: 0; text-shadow: 0 2px 6px rgba(0,0,0,0.5);">
+                    {{ cname }}
+                </h1>
+            </div>
+        </div>
+
+        <!-- Coluna direita — formulário -->
+        <div style="flex: 1; padding: 2rem; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+                <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+                    <button id="edit" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=edit'" class="button1" style="flex:1;">✏️ Edit</button>
+                    <button id="delete" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=delete'" class="button1" style="flex:1;">🗑 Delete</button>
+                    <button id="insert" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=insert'" class="button1" style="flex:1;">＋ Insert</button>
+                </div>
+                <div style="display: flex; gap: 8px; margin-bottom: 1.75rem;">
+                    <button id="save" type="submit" form="form" class="button1" {{butedit}} style="flex:1;">💾 Save</button>
+                    <button id="cancel" type="button" {{butedit}} onclick="window.location.href = '/gform/{{cname}}?option=cancel'" class="button1" style="flex:1;">✕ Cancel</button>
+                    <button id="exit" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=exit'" class="button1" style="flex:1;">← Exit</button>
+                </div>
+
+                <form id="form" action="/gform/{{cname}}?option=save" method="post">
+                    {% for key in att %}
+                        <div style="margin-bottom: 1rem;">
+                            {% if loop.index == 1 %}
+                                <label for="{{key}}">{{des[loop.index-1]}}</label>
+                                <input type="text" readonly id="{{key}}" name="{{key}}" value="{{obj[key]}}" size="4"/>
+                            {% else %}
+                                <label for="{{key}}">{{des[loop.index-1]}}</label>
+                                <input type="text" {{butedit}} id="{{key}}" name="{{key}}" value="{{obj[key]}}" size="30"/>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </form>
+            </div>
+
+            <div style="display: flex; gap: 8px; padding-top: 1.5rem; border-top: 1px solid #d0dce8; margin-top: 1rem;">
+                <button id="first" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=first'" class="button1" style="flex:1;">⏮ First</button>
+                <button id="previous" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=previous'" class="button1" style="flex:1;">◀ Prev</button>
+                <button id="next" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=next'" class="button1" style="flex:1;">Next ▶</button>
+                <button id="last" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=last'" class="button1" style="flex:1;">Last ⏭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endif %}
 
 {% endblock %}

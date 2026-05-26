@@ -1,14 +1,89 @@
 {% extends 'base.html' %}
-
-{% block title %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
-{% endblock %}
-
+{% block title %}{% endblock %}
 {% block content %}
 
-    <div class="dados">
-        <br><br>
-            <h1>Flask demo PCII</h1>
+<div style="padding: 2.5rem 0 1rem; text-align: center;">
+    <h1 style="font-size: 32px; font-weight: 600; color: #1b2a4a; margin-bottom: 0.5rem;">
+        Welcome to <span style="color: #2e6fbd;">AirManager</span>
+    </h1>
+    <p style="font-size: 16px; color: #6b7c93; margin-bottom: 2.5rem;">
+        Airport, airline and flight management system.
+    </p>
+
+    {% if ulogin != None %}
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem;">
+
+        <a href="/gform/Airline" style="text-decoration: none;">
+            <div class="dash-card">
+                <div class="dash-icon">✈</div>
+                <div class="dash-label">Airline</div>
+                <div class="dash-sub">Manage airlines</div>
+            </div>
+        </a>
+
+        <a href="/gform/Airport" style="text-decoration: none;">
+            <div class="dash-card">
+                <div class="dash-icon">🏛</div>
+                <div class="dash-label">Airport</div>
+                <div class="dash-sub">Manage airports</div>
+            </div>
+        </a>
+
+        <a href="/subform/Airport_Terminal?option=''" style="text-decoration: none;">
+            <div class="dash-card">
+                <div class="dash-icon">🚪</div>
+                <div class="dash-label">Terminals</div>
+                <div class="dash-sub">Manage terminals by airport</div>
+            </div>
+        </a>
+
+        <a href="/gform/Voo" style="text-decoration: none;">
+            <div class="dash-card">
+                <div class="dash-icon">🛫</div>
+                <div class="dash-label">Voo</div>
+                <div class="dash-sub">Manage flights</div>
+            </div>
+        </a>
+
     </div>
-    
+    {% else %}
+    <div class="dados" style="max-width: 420px; text-align: center; padding: 2.5rem; margin: 0 auto;">
+        <div style="font-size: 48px; margin-bottom: 1rem;">✈</div>
+        <p style="color: #6b7c93; margin-bottom: 1.5rem;">Please log in to access the system.</p>
+        <a href="/login" class="button1" style="padding: 10px 32px; font-size: 15px; background: #2e6fbd; color: white; border-color: #2e6fbd; text-decoration: none;">Login</a>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+.dash-card {
+    background: white;
+    border: 1px solid #d0dce8;
+    border-radius: 14px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+    cursor: pointer;
+}
+.dash-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(27,42,74,0.12);
+    border-color: #2e6fbd;
+}
+.dash-icon {
+    font-size: 40px;
+    margin-bottom: 0.75rem;
+}
+.dash-label {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1b2a4a;
+    margin-bottom: 0.4rem;
+}
+.dash-sub {
+    font-size: 13px;
+    color: #6b7c93;
+}
+</style>
+
 {% endblock %}

@@ -11,6 +11,8 @@ from subs.apps_plotly import apps_plotly
 from subs.apps_userlogin import apps_userlogin
 
 app = Flask(__name__)
+app.config['TEMPLATES_AUTO_RELOAD'] = True
+app.jinja_env.auto_reload = True
 
 Airport.read(filename + 'Airport airlines.db')
 Airline.read(filename + 'Airport airlines.db')
@@ -19,16 +21,20 @@ Voo.read(filename + 'Airport airlines.db')
 Userlogin.read(filename + 'Airport airlines.db')
 
 app.secret_key = 'BAD_SECRET_KEY'
+
 @app.route("/")
 def index():
     return render_template("index.html", ulogin=session.get("user"))
+
 @app.route("/login")
 def login():
     return render_template("login.html", user= "", password="", ulogin=session.get("user"),resul = "")
+
 @app.route("/logoff")
 def logoff():
     session.pop("user",None)
     return render_template("index.html", ulogin=session.get("user"))
+
 @app.route("/chklogin", methods=["post","get"])
 def chklogin():
     user = request.form["user"]
@@ -42,16 +48,19 @@ def chklogin():
 @app.route("/gform/<cname>", methods=["post","get"])
 def gform(cname):
     return apps_gform(cname)
+
 @app.route("/subform/<cname>", methods=["post","get"])
 def subform(cname):
     return apps_subform(cname)
+
 @app.route("/plotly", methods=["post","get"])
 def plotly():
     return apps_plotly()
+
 @app.route("/Userlogin", methods=["post","get"])
 def userlogin():
     return apps_userlogin()
+
 if __name__ == '__main__':
-    app.run()
-    
+    app.run(debug=True)
     

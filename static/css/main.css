@@ -1,85 +1,338 @@
-body{
-    margin: 0;
-    min-height: 300px;
+/* ============================================================
+   AirManager — main.css
+   Paleta: Azul petróleo + Azul royal | Fonte: Inter
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+/* ── Variáveis ─────────────────────────────────────────────── */
+:root {
+  --navy:         #1b2a4a;
+  --navy-light:   #243760;
+  --royal:        #2e6fbd;
+  --royal-hover:  #2460a8;
+  --sky:          #7eb8f7;
+  --sky-light:    #c8e6ff;
+  --bg:           #f0f4f8;
+  --bg-card:      #ffffff;
+  --text:         #1b2a4a;
+  --text-muted:   #6b7c93;
+  --border:       #d0dce8;
+  --danger:       #c0392b;
+  --danger-hover: #a93226;
+  --success:      #1e8449;
+  --radius-sm:    6px;
+  --radius-md:    10px;
+  --radius-lg:    14px;
+  --shadow:       0 1px 4px rgba(27,42,74,0.08);
 }
 
-nav{
-    width: 100%;
-    float: left;
+/* ── Reset ─────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Base ──────────────────────────────────────────────────── */
+body {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-.menu{
-    margin: 0;
-    padding: 8px;
-    height: 100%;
-    background-color: #334a94;
-
+/* ── Navbar ────────────────────────────────────────────────── */
+.navbar {
+  background: var(--navy);
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  height: 80px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
-.menu li{
-    display: inline;
-}
-
-.button{
-    font-family: Arial;
-    font-size: 1em;
-    font-style: none;
-    color: #ffffff;
-    padding: 8px;
-    text-decoration: none;
-}
-
-.button:link{
-    background-color: #334a94;
-    color: #ffffff;
-}
-
-.button:hover{
-    background-color: lightblue;
-}
-
-.dados{
-        text-align: center;
-        font-size: 1em;
-}
-
-.button1{
-    font-family: Arial;
-    background-color: #334a94;
-    font-size: 1em;
-    font-style: none;
-    color: white;
-    padding: 4px;
-    border-radius: 5px}
-}
-
-.button1:link{
-    background-color: #334a94;
-    color: #ffffff;
-}
-
-.button1:hover{
-    background-color: lightblue;
-}
-
-.button1:disabled{
-    background-color: lightgray;
-}
-
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 50%;
-  margin-left: auto; 
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   margin-right: auto;
+  text-decoration: none;
+  user-select: none;
 }
 
-td, th {
-  border: 1px solid #dddddd;
+.nav-icon {
+  font-size: 32px;
+  color: var(--sky);
+  line-height: 1;
+}
+
+.nav-title {
+  font-size: 26px;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+  color: var(--sky-light);
+}
+
+.nav-title strong {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* ── Menu (nav links) ──────────────────────────────────────── */
+ul.menu {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+a.button {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--sky);
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+  font-family: 'Inter', sans-serif;
+}
+
+a.button:hover {
+  background: rgba(126, 184, 247, 0.14);
+  color: #ffffff;
+}
+
+.nav-user {
+  background: rgba(46, 111, 189, 0.35) !important;
+  color: #ffffff !important;
+  border-radius: 20px !important;
+  font-weight: 500;
+  cursor: default;
+  padding: 5px 16px !important;
+}
+
+/* ── Main content ──────────────────────────────────────────── */
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* ── Card / Dados ──────────────────────────────────────────── */
+.dados {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.dados h1 {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 1.25rem;
+}
+
+.dados h2 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.dados img {
+  border-radius: var(--radius-md);
+  margin-bottom: 1.25rem;
+  display: block;
+  border: 1px solid var(--border);
+}
+
+/* ── Botões de ação (button1) ──────────────────────────────── */
+.button1 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 18px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  border: 1.5px solid var(--royal);
+  background: var(--bg-card);
+  color: var(--royal);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  text-decoration: none;
+  margin-right: 4px;
+  margin-bottom: 4px;
+}
+
+.button1:hover:not(:disabled) {
+  background: var(--royal);
+  color: #ffffff;
+}
+
+/* Insert e Save — destaque primário */
+#insert, #save {
+  background: var(--royal);
+  color: #ffffff;
+  border-color: var(--royal);
+}
+
+#insert:hover:not(:disabled), #save:hover:not(:disabled) {
+  background: var(--royal-hover);
+  border-color: var(--royal-hover);
+}
+
+/* Delete — vermelho */
+#delete {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+#delete:hover:not(:disabled) {
+  background: var(--danger);
+  color: #ffffff;
+}
+
+/* Botões de navegação (First, Previous, Next, Last) */
+#first, #previous, #next, #last {
+  background: var(--bg);
+  border-color: var(--border);
+  color: var(--text-muted);
+}
+
+#first:hover:not(:disabled),
+#previous:hover:not(:disabled),
+#next:hover:not(:disabled),
+#last:hover:not(:disabled) {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: #ffffff;
+}
+
+/* Desativado */
+.button1:disabled,
+.button1[disabled="disabled"] {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ── Formulários ───────────────────────────────────────────── */
+label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="password"] {
+  padding: 9px 13px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  transition: border-color 0.15s, background 0.15s;
+  width: 100%;
+  max-width: 380px;
+  display: block;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  outline: none;
+  border-color: var(--royal);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(46,111,189,0.12);
+}
+
+input[readonly],
+input:disabled {
+  background: #e8edf2;
+  color: var(--text-muted);
+  border-color: var(--border);
+  cursor: default;
+}
+
+/* ── Tabelas ───────────────────────────────────────────────── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+th {
   text-align: left;
-  padding: 8px;
+  padding: 10px 14px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text-muted);
+  background: var(--bg);
+  border-bottom: 2px solid var(--border);
 }
 
-tr:nth-child(even) {
-  background-color: #dddddd;
+td {
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+
+tr:hover td {
+  background: #f5f8fc;
+}
+
+/* ── Página de login ───────────────────────────────────────── */
+.dados h1:only-of-type {
+  margin-bottom: 1.5rem;
+}
+
+/* ── Footer ────────────────────────────────────────────────── */
+.footer {
+  background: var(--navy);
+  color: var(--sky);
+  text-align: center;
+  font-size: 12px;
+  padding: 12px;
+  opacity: 0.85;
+}
+
+/* ── Mensagens de erro ─────────────────────────────────────── */
+h3[style*="color: red"],
+p[style*="color: red"] {
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 14px;
+  background: #fdf0ef;
+  border-left: 3px solid var(--danger);
+  border-radius: var(--radius-sm);
+  color: var(--danger) !important;
+}
+
+/* ── Item ativo no menu ────────────────────────────────────── */
+a.button.active {
+  background: rgba(126, 184, 247, 0.22);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* ── Logo clicável ─────────────────────────────────────────── */
+a.nav-brand {
+  text-decoration: none;
 }

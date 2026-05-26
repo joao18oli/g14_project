@@ -1,30 +1,44 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Flask demo PCII</title>
+    <title>AirManager</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
     {% block title %}
     {% endblock %}
   </head>
-    <body>
-        <nav>
-            <ul class="menu">
-                {% if ulogin == None %}
-                    <li><a class="button" href="/login">Login</a></li>
-                {% else %}
-                    <li><a class="button" href="/logoff">Logoff</a></li>
-                    <li><a class="button" href="/gform/Airport">Airport</a></li>
-                    <li><a class="button" href="/gform/Airline">Airline</a></li>
-                    <li><a class="button" href="/gform/Terminal">Terminal</a></li>
-                    <li><a class="button" href="/gform/Voo">Flight</a></li>
-                    <li><a class="button" href="/plotly">Plotly</a></li>
-                    <li><a class="button" href="/Userlogin">Users</a></li>
-                    <li><a class="button" style="color:lightblue">User: {{ulogin}}</a></li>
-                {% endif %}
-            </ul>
-        </nav>
-    {% block content %}
-    {% endblock %}
+  <body>
+    <nav class="navbar">
+      <a href="/" class="nav-brand">
+        <span class="nav-icon">✈</span>
+        <span class="nav-title">Air<strong>Manager</strong></span>
+      </a>
+      <ul class="menu">
+        {% if ulogin == None %}
+          <li><a class="button" href="/login">Login</a></li>
+        {% else %}
+          <li><a class="button" href="/logoff">Logoff</a></li>
+          <li><a class="button {% if '/gform/Airline' in request.path %}active{% endif %}" href="/gform/Airline">Airline</a></li>
+          <li><a class="button {% if '/gform/Airport' in request.path %}active{% endif %}" href="/gform/Airport">Airport</a></li>
+          <li><a class="button {% if 'Airport_Terminal' in request.path %}active{% endif %}" href="/subform/Airport_Terminal?option=''">Terminals</a></li>
+          <li><a class="button {% if '/gform/Voo' in request.path %}active{% endif %}" href="/gform/Voo">Voo</a></li>
+          <li><a class="button {% if '/Userlogin' in request.path %}active{% endif %}" href="/Userlogin">Users</a></li>
+          <li><a class="button nav-user">{{ ulogin }}</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+
+    <main class="main-content">
+      {% block content %}
+      {% endblock %}
+    </main>
+
+    <footer class="footer">
+      <span>AirManager &copy; 2026 &mdash; FEUP EGI</span>
+    </footer>
   </body>
 </html>
