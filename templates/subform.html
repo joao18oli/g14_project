@@ -41,7 +41,7 @@
         <table>
               <tr>
                 {% for header in desl %}
-                    {% if loop.index > 1 %}
+                    {% if loop.index != 3 %}
                         <th>{{header}}</th>
                     {% endif %}
                 {% endfor %}
@@ -50,7 +50,7 @@
                 {% for ob in objl %}
                   <tr>
                     {% for key in attl %}
-                        {% if loop.index > 1 %}
+                        {% if loop.index != 3 %}
                             <td>{{ ob[key] }}</td>
                         {% endif %}
                     {% endfor %}

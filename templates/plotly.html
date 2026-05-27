@@ -1,13 +1,44 @@
 {% extends 'base.html' %}
-
 {% block title %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
 {% endblock %}
-
 {% block content %}
-    {{ plot_div | safe }}
-    <br>
-    <div style="text-align: center;">
-        <a class="button" href="/">Back</a>
+<div style="padding: 2rem;">
+    <h1 style="font-size: 28px; font-weight: 600; color: #1b2a4a; margin-bottom: 2rem;">Charts & Statistics</h1>
+    
+        <div style="display: flex; gap: 1.5rem; margin-bottom: 2.5rem; flex-wrap: wrap;">
+            <div style="background: #2e6fbd; color: white; border-radius: 14px; padding: 1.5rem 2rem; flex: 1; text-align: center;">
+                <div style="font-size: 36px; font-weight: 700;">{{ stats.flights }}</div>
+                <div style="font-size: 14px; margin-top: 0.25rem;">Flights</div>
+        </div>
+        
+        <div style="background: #1b2a4a; color: white; border-radius: 14px; padding: 1.5rem 2rem; flex: 1; text-align: center;">
+            <div style="font-size: 36px; font-weight: 700;">{{ stats.airports }}</div>
+            <div style="font-size: 14px; margin-top: 0.25rem;">Airports</div>
+        </div>
+        <div style="background: #2e6fbd; color: white; border-radius: 14px; padding: 1.5rem 2rem; flex: 1; text-align: center;">
+            <div style="font-size: 36px; font-weight: 700;">{{ stats.airlines }}</div>
+            <div style="font-size: 14px; margin-top: 0.25rem;">Airlines</div>
+        </div>
+        <div style="background: #1b2a4a; color: white; border-radius: 14px; padding: 1.5rem 2rem; flex: 1; text-align: center;">
+            <div style="font-size: 36px; font-weight: 700;">{{ stats.terminals }}</div>
+            <div style="font-size: 14px; margin-top: 0.25rem;">Terminals</div>
+        </div>
     </div>
+    
+    
+    
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(600px, 1fr)); gap: 2rem;">
+        {% for plot in plots %}
+            <div style="background: white; border: 1px solid #d0dce8; border-radius: 14px; padding: 1.5rem;">
+                {{ plot | safe }}
+            </div>
+        {% endfor %}
+    </div>
+    <br>
+    <div style="text-align: center; margin-top: 1rem;">
+        <a class="button1" href="/">Back</a>
+    </div>
+</div>
 {% endblock %}

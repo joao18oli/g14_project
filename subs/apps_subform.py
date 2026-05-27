@@ -39,7 +39,7 @@ def apps_subform(cname=""):
                 butedit = "enabled"
             elif option == "delete":
                 obj = cl.current()
-                lines = sbl.getlines(sbl.att[1],getattr(obj, cl.att[0]))
+                lines = sbl.getlines(sbl.att[2],getattr(obj, cl.att[0]))
                 for line in lines:
                     sbl.remove(line.id)
                 cl.remove(obj.id)
@@ -58,10 +58,10 @@ def apps_subform(cname=""):
                 cl.nextrec()
             elif option == "last":
                 cl.last()
-            elif option[:6] == "delrow":
+            elif option and option[:6] == "delrow":
                 row = int(option.split("_")[1])
                 obj = cl.current()
-                lines = sbl.getlines(sbl.att[1],getattr(obj, cl.att[0]))
+                lines = sbl.getlines(sbl.att[2],getattr(obj, cl.att[0]))
                 # print(row,lines[row])
                 sbl.remove(lines[row])
             elif option == "addrow":
@@ -80,6 +80,7 @@ def apps_subform(cname=""):
                 return render_template("index.html", ulogin=session.get("user"))
         prev_option = option
         obj = cl.current()
+        
         headers = list()
         objl = list()
         if option == 'insert' or len(cl.lst) == 0:
@@ -90,7 +91,7 @@ def apps_subform(cname=""):
         else:
             for i in range(1, len(sbl.att)):
                     headers.append(sbl.att[i][1:])        
-            lines = sbl.getlines(sbl.att[1],getattr(obj, cl.att[0]))
+            lines = sbl.getlines(sbl.att[2],getattr(obj, cl.att[0]))
             for line in lines:
                 objl.append(sbl.obj[line])
         # return render_template("gform.html", butshow=butshow, butedit=butedit, cname=cname, code=code,name = name,dob=dob,salary=salary)
