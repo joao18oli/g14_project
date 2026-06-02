@@ -21,10 +21,13 @@ def apps_plotly():
     # Gráfico 1 — Custo médio por companhia aérea
     result1 = df_voo.groupby('airline_id')['ticket_cost'].mean()
     a_names = [Airline.obj[a_id].denomination for a_id in result1.index]
+    
     fig1 = px.bar(x=a_names, y=result1.values,
                   labels={'x': 'Airline', 'y': 'Avg Ticket Cost'},
                   title='Average ticket cost by airline')
-    fig1.update_layout(xaxis_tickangle=-45)
+    
+    fig1.update_yaxes(range=[2100, max(result1.values)])
+    fig1.update_layout(xaxis={'categoryorder': 'total ascending', 'tickangle': -45})
 
     # Gráfico 2 — Número de voos por aeroporto
     result2 = df_voo.groupby('airport_id')['id'].count()
