@@ -1,60 +1,87 @@
 {% extends 'base.html' %}
-
-{% block title %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
-{% endblock %}
-
-
+{% block title %}{% endblock %}
 {% block content %}
 
-    <div class="dados">
-        <br><br><br>
-        <img src="{{ url_for('static', filename='images/Userlogin.jpg')}}" alt="userlogin" width="200" height="200">
-        <h1>Userlogin</h1>
-        <br>
-        <button id="edit" type="button" {{butshow}} onclick="window.location.href = '/Userlogin?option=edit'" class="button1">Edit</button>
-        {% if group == "admin" %} 
-            <button id="delete" type="button" {{butshow}} onclick="window.location.href = '/Userlogin?option=delete'" class="button1">Delete</button>
-            <button id="insert" type="button" {{butshow}} onclick="window.location.href = '/Userlogin?option=insert'" class="button1">Insert</button>
-        {% endif %}
-        <button id="save" type="submit" form="form" {{butedit}} class="button1">Save</button>
-        <button id="cancel" type="button" {{butedit}} onclick="window.location.href = '/Userlogin?option=cancel'" class="button1">Cancel</button>
-        <button id="exit" type="button" {{butshow}} onclick="window.location.href = '/Userlogin?option=exit'" class="button1">Exit</button>
-        <br><br>
-        <form id="form" action="/Userlogin?option=save" method="post">
-         {% if group == "admin" %} 
-            <label for="id">Id:</label>
-            <input type="text" disabled id="id" name="id" value="{{id}}" size="4"/>
-            <br><br>
-            <label for="user">User:</label>
-            <input type="text" {{butedit}} id="user" name="user" value="{{user}}" size="40"/>
-            <br><br>
-            <label for="usergroup">Group:</label>
-            <input type="text" {{butedit}} id="usergroup" name="usergroup" value="{{usergroup}}" size="40"/>
-        {% else %}
-            <label for="id">Id:</label>
-            <input type="text" disabled id="id" name="id" value="{{id}}" size="4"/>
-            <br><br>
-            <label for="user">User:</label>
-            <input type="text" disabled id="user" name="user" value="{{user}}" size="40"/>
-            <br><br>
-            <label for="usergroup">Group:</label>
-            <input type="text" disabled id="usergroup" name="usergroup" value="{{usergroup}}" size="40"/>
-        {% endif %}        
-            <br><br>
-            <label for="password">Password:</label>
-            <input type="password" {{butedit}} id="password" name="password" size="40"/>
-        </form>
-        <br>
-        {% if group == "admin" %} 
-            <button id="first" type="button" {{butshow}} onclick="window.location.href = '/Userlogin?option=first'" class="button1">First</button>
-            <button id="previous" type="button" {{butshow}} onclick="window.location.href = '/Userlogin?option=previous'" class="button1">Previous</button>
-            <button id="next" type="button" {{butshow}} onclick="window.location.href = '/Userlogin?option=next'" class="button1">Next</button>
-            <button id="last" type="button" {{butshow}} onclick="window.location.href = '/Userlogin?option=last'" class="button1">Last</button>
-        {% endif %}
-        <br>
-        <p style="color: red;">{{msg}}</p>
-        
+<div class="dados" style="padding: 0; overflow: hidden;">
+    <div style="display: flex; align-items: stretch; min-height: 480px;">
+
+        <!-- Coluna esquerda — imagem -->
+        <div style="width: 50%; min-width: 50%; position: relative; overflow: hidden; background: #eaf4fb; display: flex; align-items: center; justify-content: center;">
+            <img src="{{ url_for('static', filename='images/Userlogin.jpg')}}" alt="userlogin"
+                 style="width: 100%; height: 100%; object-fit: contain; padding: 0rem;">
+            <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1.25rem 1.5rem;
+                        background: linear-gradient(to top, rgba(27,42,74,0.85) 0%, transparent 100%);">
+                <h1 style="font-size: 26px; font-weight: 600; color: white; margin: 0; text-shadow: 0 2px 6px rgba(0,0,0,0.4);">
+                    User Management
+                </h1>
+            </div>
+        </div>
+
+        <!-- Coluna direita — formulário -->
+        <div style="flex: 1; padding: 2rem; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+                <!-- Botões linha 1 -->
+                <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+                    <button id="edit" type="button" {{butshow}} onclick="window.location.href = '/Userlogin?option=edit'" class="button1" style="flex:1;">✏️ Edit</button>
+                    {% if group == "admin" %}
+                    <button id="delete" type="button" {{butshow}} onclick="window.location.href = '/Userlogin?option=delete'" class="button1" style="flex:1;">🗑 Delete</button>
+                    <button id="insert" type="button" {{butshow}} onclick="window.location.href = '/Userlogin?option=insert'" class="button1" style="flex:1;">＋ Insert</button>
+                    {% endif %}
+                </div>
+                <!-- Botões linha 2 -->
+                <div style="display: flex; gap: 8px; margin-bottom: 1.75rem;">
+                    <button id="save" type="submit" form="form" {{butedit}} class="button1" style="flex:1;">💾 Save</button>
+                    <button id="cancel" type="button" {{butedit}} onclick="window.location.href = '/Userlogin?option=cancel'" class="button1" style="flex:1;">✕ Cancel</button>
+                    <button id="exit" type="button" {{butshow}} onclick="window.location.href = '/Userlogin?option=exit'" class="button1" style="flex:1;">← Exit</button>
+                </div>
+
+                <!-- Formulário -->
+                <form id="form" action="/Userlogin?option=save" method="post">
+                    <div style="margin-bottom: 1rem;">
+                        <label for="id">ID</label>
+                        <input type="text" disabled id="id" name="id" value="{{id}}"/>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <label for="user">User</label>
+                        {% if group == "admin" %}
+                            <input type="text" {{butedit}} id="user" name="user" value="{{user}}"/>
+                        {% else %}
+                            <input type="text" disabled id="user" name="user" value="{{user}}"/>
+                        {% endif %}
+                    </div>
+                    {% if group == "admin" %}
+                    <div style="margin-bottom: 1rem;">
+                        <label for="usergroup">Group</label>
+                        <input type="text" {{butedit}} id="usergroup" name="usergroup" value="{{usergroup}}"/>
+                    </div>
+                    {% else %}
+                    <div style="margin-bottom: 1rem;">
+                        <label for="usergroup">Group</label>
+                        <input type="text" disabled id="usergroup" name="usergroup" value="{{usergroup}}"/>
+                    </div>
+                    {% endif %}
+                    <div style="margin-bottom: 1rem;">
+                        <label for="password">Password</label>
+                        <input type="password" {{butedit}} id="password" name="password"/>
+                    </div>
+                </form>
+
+                {% if msg %}
+                <p style="color: #c0392b; font-size: 13px; font-weight: 500; margin-top: 0.5rem;">{{ msg }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Botões de navegação (só admin) -->
+            {% if group == "admin" %}
+            <div style="display: flex; gap: 8px; padding-top: 1.5rem; border-top: 1px solid #d0dce8; margin-top: 1rem;">
+                <button id="first" type="button" {{butshow}} onclick="window.location.href = '/Userlogin?option=first'" class="button1" style="flex:1;">⏮ First</button>
+                <button id="previous" type="button" {{butshow}} onclick="window.location.href = '/Userlogin?option=previous'" class="button1" style="flex:1;">◀ Prev</button>
+                <button id="next" type="button" {{butshow}} onclick="window.location.href = '/Userlogin?option=next'" class="button1" style="flex:1;">Next ▶</button>
+                <button id="last" type="button" {{butshow}} onclick="window.location.href = '/Userlogin?option=last'" class="button1" style="flex:1;">Last ⏭</button>
+            </div>
+            {% endif %}
+        </div>
     </div>
+</div>
 
 {% endblock %}
