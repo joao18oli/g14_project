@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="padding: 2rem;">
+    <h1>Compare Airports</h1>
+    
+    {% if stats %}
+    <div style="display: flex; gap: 1.5rem; margin: 2rem 0; flex-wrap: wrap;">
+
+        <div style="background: #2e6fbd; color: white; border-radius: 14px; padding: 1.5rem; flex: 1; text-align: center;">
+            <div style="font-size: 20px; font-weight: 600;">Avg Ticket Cost</div>
+            <div style="margin-top: 0.5rem;">
+                {{ stats.a1_name }}: <b>{{ stats.avg_cost[0] | round(2) }}</b><br>
+                {{ stats.a2_name }}: <b>{{ stats.avg_cost[1] | round(2) }}</b>
+            </div>
+        </div>
+
+        <div style="background: #1b2a4a; color: white; border-radius: 14px; padding: 1.5rem; flex: 1; text-align: center;">
+            <div style="font-size: 20px; font-weight: 600;">Number of Flights</div>
+            <div style="margin-top: 0.5rem;">
+                {{ stats.a1_name }}: <b>{{ stats.flights[0] }}</b><br>
+                {{ stats.a2_name }}: <b>{{ stats.flights[1] }}</b>
+            </div>
+        </div>
+
+        <div style="background: #2e6fbd; color: white; border-radius: 14px; padding: 1.5rem; flex: 1; text-align: center;">
+            <div style="font-size: 20px; font-weight: 600;">Terminals</div>
+            <div style="margin-top: 0.5rem;">
+                {{ stats.a1_name }}: <b>{{ stats.terminals[0] }}</b><br>
+                {{ stats.a2_name }}: <b>{{ stats.terminals[1] }}</b>
+            </div>
+        </div>
+
+    </div>
+    {% endif %}
+
+    {% if plots %}
+    <div style="display: flex; gap: 1rem; margin-top: 2rem; justify-content: center; align-items: flex-start;">
+
+        <!-- Avg Ticket Cost (primeiro) -->
+        <div style="background: white; border: 1px solid #d0dce8; border-radius: 14px; padding: 1rem; width: 30%; overflow: hidden; max-width: 100%;">
+            {{ plots.cost | safe }}
+        </div>
+
+        <!-- Flights (segundo) -->
+        <div style="background: white; border: 1px solid #d0dce8; border-radius: 14px; padding: 1rem; width: 30%; overflow: hidden; max-width: 100%;">
+            {{ plots.flights | safe }}
+        </div>
+
+        <!-- Terminals (terceiro) -->
+        <div style="background: white; border: 1px solid #d0dce8; border-radius: 14px; padding: 1rem; width: 30%;overflow: hidden; max-width: 100%;">
+            {{ plots.terminals | safe }}
+        </div>
+
+    </div>
+
+
+    
+    {% endif %}
+
+    <form method="get" style="margin-top: 2rem;">
+        <label>Select Airport 1:</label>
+        <select name="a1">
+            {% for id, name in airports.items() %}
+                <option value="{{ id }}">{{ name }}</option>
+            {% endfor %}
+        </select>
+
+        <label style="margin-left: 1rem;">Select Airport 2:</label>
+        <select name="a2">
+            {% for id, name in airports.items() %}
+                <option value="{{ id }}">{{ name }}</option>
+            {% endfor %}
+        </select>
+
+        <button type="submit" class="button1" style="margin-left: 1rem;">Compare</button>
+    </form>
+
+    <h3 style="margin-top: 0.5rem;">{{ result_cost }}</h3>
+    <h3 style="margin-top: 0.5rem;">{{ result }}</h3>
+    <h3 style="margin-top: 0.5rem;">{{ result_term }}</h3>
+
+    <hr style="margin: 3rem 0;">
+
+    <h1>Compare Airlines</h1>
+
+    {% if stats_airlines %}
+    <div style="display: flex; gap: 1.5rem; margin: 2rem 0; flex-wrap: wrap;">
+
+        <div style="background: #2e6fbd; color: white; border-radius: 14px; padding: 1.5rem; flex: 1; text-align: center;">
+            <div style="font-size: 20px; font-weight: 600;">Avg Ticket Cost</div>
+            <div style="margin-top: 0.5rem;">
+                {{ stats_airlines.al1_name }}: <b>{{ stats_airlines.avg_cost[0] | round(2) }}</b><br>
+                {{ stats_airlines.al2_name }}: <b>{{ stats_airlines.avg_cost[1] | round(2) }}</b>
+            </div>
+        </div>
+
+        <div style="background: #1b2a4a; color: white; border-radius: 14px; padding: 1.5rem; flex: 1; text-align: center;">
+            <div style="font-size: 20px; font-weight: 600;">Flights</div>
+            <div style="margin-top: 0.5rem;">
+                {{ stats_airlines.al1_name }}: <b>{{ stats_airlines.flights[0] }}</b><br>
+                {{ stats_airlines.al2_name }}: <b>{{ stats_airlines.flights[1] }}</b>
+            </div>
+        </div>
+
+        <div style="background: #2e6fbd; color: white; border-radius: 14px; padding: 1.5rem; flex: 1; text-align: center;">
+            <div style="font-size: 20px; font-weight: 600;">Airports Served</div>
+            <div style="margin-top: 0.5rem;">
+                {{ stats_airlines.al1_name }}: <b>{{ stats_airlines.airports[0] }}</b><br>
+                {{ stats_airlines.al2_name }}: <b>{{ stats_airlines.airports[1] }}</b>
+            </div>
+        </div>
+
+    </div>
+    {% endif %}
+
+    {% if plots_airlines %}
+    <div style="display: flex; gap: 1rem; margin-top: 2rem; justify-content: center; align-items: flex-start;">
+
+        <div style="background: white; border: 1px solid #d0dce8; border-radius: 14px; padding: 1rem; width: 30%; overflow: hidden; max-width: 100%;">
+            {{ plots_airlines.cost | safe }}
+        </div>
+
+        <div style="background: white; border: 1px solid #d0dce8; border-radius: 14px; padding: 1rem; width: 30%; overflow: hidden; max-width: 100%;">
+            {{ plots_airlines.flights | safe }}
+        </div>
+
+        <div style="background: white; border: 1px solid #d0dce8; border-radius: 14px; padding: 1rem; width: 30%; overflow: hidden; max-width: 100%;">
+            {{ plots_airlines.airports | safe }}
+        </div>
+
+    </div>
+    {% endif %}
+
+    {% if result_airlines %}
+        <h3 style="margin-top: 0.5rem;">{{ result_cost_airlines }}</h3>
+        <h3 style="margin-top: 0.5rem;">{{ result_airlines }}</h3>
+        <h3 style="margin-top: 0.5rem;">{{ result_airports_airlines }}</h3>
+    {% endif %}
+
+    <form method="get" style="margin-top: 2rem;">
+        <input type="hidden" name="a1" value="{{ request.args.get('a1', '') }}">
+        <input type="hidden" name="a2" value="{{ request.args.get('a2', '') }}">
+        <label>Select Airline 1:</label>
+        <select name="al1">
+            {% for id, name in airlines.items() %}
+                <option value="{{ id }}">{{ name }}</option>
+            {% endfor %}
+        </select>
+        <label style="margin-left: 1rem;">Select Airline 2:</label>
+        <select name="al2">
+            {% for id, name in airlines.items() %}
+                <option value="{{ id }}">{{ name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="button1" style="margin-left: 1rem;">Compare Airlines</button>
+    </form>
+
+
+    <br>
+    <a class="button1" href="/">Back</a>
+</div>
+{% endblock %}

@@ -8,7 +8,9 @@ from classes.userlogin import Userlogin
 from subs.apps_gform import apps_gform 
 from subs.apps_subform import apps_subform 
 from subs.apps_plotly import apps_plotly
+from subs.apps_plotly import compare
 from subs.apps_userlogin import apps_userlogin
+
 
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
@@ -56,6 +58,11 @@ def subform(cname):
 @app.route("/plotly", methods=["post","get"])
 def plotly():
     return apps_plotly()
+
+@app.route("/compare")
+def compare_route():
+    return compare()
+
 
 @app.route("/Userlogin", methods=["post","get"])
 def userlogin():

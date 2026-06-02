@@ -26,6 +26,7 @@
           <li><a class="button {% if 'Airport_Terminal' in request.path %}active{% endif %}" href="/subform/Airport_Terminal?option=''">Terminal</a></li>
           <li><a class="button {% if '/gform/Voo' in request.path %}active{% endif %}" href="/gform/Voo">Flight</a></li>
           <li><a class="button {% if '/plotly' in request.path %}active{% endif %}" href="/plotly">Charts</a></li>
+          <li><a class="button {% if '/compare' in request.path %}active{% endif %}" href="/compare">Compare</a></li>
           <li><a class="button {% if '/Userlogin' in request.path %}active{% endif %}" href="/Userlogin">Users</a></li>
           <li><a class="button nav-user">{{ ulogin }}</a></li>
           <li><a class="button" href="/logoff">Logoff</a></li>
