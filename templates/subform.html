@@ -2,6 +2,21 @@
 {% block title %}{% endblock %}
 {% block content %}
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var scrollPos = sessionStorage.getItem('scrollPos');
+    if (scrollPos) {
+        window.scrollTo(0, parseInt(scrollPos));
+        sessionStorage.removeItem('scrollPos');
+    }
+    document.querySelectorAll('#first, #previous, #next, #last').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            sessionStorage.setItem('scrollPos', window.scrollY);
+        });
+    });
+});
+</script>
+
 <!-- Banner com imagem -->
 <div style="position: relative; margin: -2rem -2rem 0 -2rem; height: 420px; overflow: hidden;">
     <img src="/static/images/{{cname}}.jpg" alt="{{cname}}"
@@ -25,11 +40,11 @@
                     <div style="margin-bottom: 1rem;">
                         {% if loop.index == 1 %}
                             <label for="{{key}}">{{des[loop.index-1]}}</label>
-                            <input type="text" readonly id="{{key}}" name="{{key}}" value="{{obj[key]}}" size="4"/>
+                            <input type="text" readonly id="{{key}}" name="{{key}}" value="{{obj[key]|dateformat}}" size="4"/>
                             {% set ns.id_header = obj[key] %}
                         {% else %}
                             <label for="{{key}}">{{des[loop.index-1]}}</label>
-                            <input type="text" {{butedit}} id="{{key}}" name="{{key}}" value="{{obj[key]}}" size="30"/>
+                            <input type="text" {{butedit}} id="{{key}}" name="{{key}}" value="{{obj[key]|dateformat}}" size="30"/>
                         {% endif %}
                     </div>
                 {% endfor %}
@@ -54,6 +69,14 @@
                 <button id="next" type="button" {{butshow}} onclick="window.location.href = '/subform/{{cname}}?option=next'" class="button1" style="flex:1;">▶</button>
                 <button id="last" type="button" {{butshow}} onclick="window.location.href = '/subform/{{cname}}?option=last'" class="button1" style="flex:1;">⏭</button>
             </div>
+            <!-- Pesquisa por ID -->
+            <form action="/subform/{{cname}}" method="get" style="display: flex; gap: 8px; margin-top: 10px;">
+                <input type="hidden" name="option" value="goto"/>
+                <input type="text" name="search_id" placeholder="Search by ID..." min="1"
+                       style="flex:1; padding: 7px 12px; border: 1.5px solid #d0dce8; border-radius: 6px;
+                              font-size: 13px; font-family: Inter, sans-serif; color: #1b2a4a; background: #f0f4f8;"/>
+                <button type="submit" class="button1" style="white-space: nowrap;">🔍 Go</button>
+            </form>
         </div>
     </div>
 </div>
@@ -81,7 +104,7 @@
             <tr>
                 {% for key in attl %}
                     {% if loop.index != 3 %}
-                        <td>{{ ob[key] }}</td>
+                        <td>{{ ob[key]|dateformat }}</td>
                     {% endif %}
                 {% endfor %}
                 <td>

@@ -2,6 +2,21 @@
 {% block title %}{% endblock %}
 {% block content %}
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var scrollPos = sessionStorage.getItem('scrollPos');
+    if (scrollPos) {
+        window.scrollTo(0, parseInt(scrollPos));
+        sessionStorage.removeItem('scrollPos');
+    }
+    document.querySelectorAll('#first, #previous, #next, #last').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            sessionStorage.setItem('scrollPos', window.scrollY);
+        });
+    });
+});
+</script>
+
 {% if cname == 'Voo' %}
 
 <!-- ── VOO: parallax fixo + card transparente ── -->
@@ -41,21 +56,29 @@
                 <div style="margin-bottom: 1rem;">
                     {% if loop.index == 1 %}
                         <label for="{{key}}" style="color: rgba(255,255,255,0.85);">{{des[loop.index-1]}}</label>
-                        <input type="text" readonly id="{{key}}" name="{{key}}" value="{{obj[key]}}" size="4"/>
+                        <input type="text" readonly id="{{key}}" name="{{key}}" value="{{obj[key]|dateformat}}" size="4"/>
                     {% else %}
                         <label for="{{key}}" style="color: rgba(255,255,255,0.85);">{{des[loop.index-1]}}</label>
-                        <input type="text" {{butedit}} id="{{key}}" name="{{key}}" value="{{obj[key]}}" size="30"/>
+                        <input type="text" {{butedit}} id="{{key}}" name="{{key}}" value="{{obj[key]|dateformat}}" size="30"/>
                     {% endif %}
                 </div>
             {% endfor %}
         </form>
 
-        <div style="display: flex; gap: 8px; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.3);">
+        <div style="display: flex; gap: 8px; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.3); flex-wrap: wrap;">
             <button id="first" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=first'" class="button1" style="flex:1;">⏮ First</button>
             <button id="previous" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=previous'" class="button1" style="flex:1;">◀ Prev</button>
             <button id="next" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=next'" class="button1" style="flex:1;">Next ▶</button>
             <button id="last" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=last'" class="button1" style="flex:1;">Last ⏭</button>
         </div>
+        <!-- Pesquisa por ID -->
+        <form action="/gform/{{cname}}" method="get" style="display: flex; gap: 8px; margin-top: 10px;">
+            <input type="hidden" name="option" value="goto"/>
+            <input type="text" name="search_id" placeholder="Search by ID..." min="1"
+                   style="flex:1; padding: 7px 12px; border: 1.5px solid #d0dce8; border-radius: 6px;
+                          background: #f0f4f8; color: #1b2a4a; font-size: 13px; font-family: Inter, sans-serif;"/>
+            <button type="submit" class="button1" style="white-space: nowrap;">🔍 Go</button>
+        </form>
     </div>
 </div>
 
@@ -68,10 +91,9 @@
         <!-- Coluna esquerda — imagem -->
         <div style="width: 55%; min-width: 55%; position: relative; overflow: hidden;">
             <img src="/static/images/{{cname}}.jpg" alt="{{cname}}"
-                 style="position: absolute; inset: 0; width: 120%; height: 120%; object-fit: contain;padding: 0px; object-position: center; left: -10%; top: -5%;
+                 style="position: absolute; inset: 0; width: 120%; height: 120%; object-fit: contain; padding: 0px; object-position: center; left: -10%; top: -5%;
                  {% if cname == 'Airport' %}object-position: center 20%;{% else %}object-position: 65% center;{% endif %}">
 
-            <!-- Gradiente + título -->
             <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem;
                         background: linear-gradient(to top, rgba(27,42,74,0.85) 0%, rgba(27,42,74,0.2) 60%, transparent 100%);">
                 <h1 style="font-size: 28px; font-weight: 600; color: white; margin: 0; text-shadow: 0 2px 6px rgba(0,0,0,0.5);">
@@ -99,21 +121,32 @@
                         <div style="margin-bottom: 1rem;">
                             {% if loop.index == 1 %}
                                 <label for="{{key}}">{{des[loop.index-1]}}</label>
-                                <input type="text" readonly id="{{key}}" name="{{key}}" value="{{obj[key]}}" size="4"/>
+                                <input type="text" readonly id="{{key}}" name="{{key}}" value="{{obj[key]|dateformat}}" size="4"/>
                             {% else %}
                                 <label for="{{key}}">{{des[loop.index-1]}}</label>
-                                <input type="text" {{butedit}} id="{{key}}" name="{{key}}" value="{{obj[key]}}" size="30"/>
+                                <input type="text" {{butedit}} id="{{key}}" name="{{key}}" value="{{obj[key]|dateformat}}" size="30"/>
                             {% endif %}
                         </div>
                     {% endfor %}
                 </form>
             </div>
 
-            <div style="display: flex; gap: 8px; padding-top: 1.5rem; border-top: 1px solid #d0dce8; margin-top: 1rem;">
-                <button id="first" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=first'" class="button1" style="flex:1;">⏮ First</button>
-                <button id="previous" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=previous'" class="button1" style="flex:1;">◀ Prev</button>
-                <button id="next" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=next'" class="button1" style="flex:1;">Next ▶</button>
-                <button id="last" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=last'" class="button1" style="flex:1;">Last ⏭</button>
+            <div style="margin-top: 1rem;">
+                <!-- Navegação -->
+                <div style="display: flex; gap: 8px; padding-top: 1.5rem; border-top: 1px solid #d0dce8;">
+                    <button id="first" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=first'" class="button1" style="flex:1;">⏮ First</button>
+                    <button id="previous" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=previous'" class="button1" style="flex:1;">◀ Prev</button>
+                    <button id="next" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=next'" class="button1" style="flex:1;">Next ▶</button>
+                    <button id="last" type="button" {{butshow}} onclick="window.location.href = '/gform/{{cname}}?option=last'" class="button1" style="flex:1;">Last ⏭</button>
+                </div>
+                <!-- Pesquisa por ID -->
+                <form action="/gform/{{cname}}" method="get" style="display: flex; gap: 8px; margin-top: 10px;">
+                    <input type="hidden" name="option" value="goto"/>
+                    <input type="text" name="search_id" placeholder="Search by ID..." min="1"
+                           style="flex:1; padding: 7px 12px; border: 1.5px solid #d0dce8; border-radius: 6px;
+                                  font-size: 13px; font-family: Inter, sans-serif; color: #1b2a4a; background: #f0f4f8;"/>
+                    <button type="submit" class="button1" style="white-space: nowrap;">🔍 Go</button>
+                </form>
             </div>
         </div>
     </div>

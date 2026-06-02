@@ -16,6 +16,13 @@ app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.jinja_env.auto_reload = True
 
+@app.template_filter('dateformat')
+def dateformat(value):
+    s = str(value)
+    if value and ':' in s and ' ' in s:
+        return s.split(' ')[0]
+    return value
+
 Airport.read(filename + 'Airport airlines.db')
 Airline.read(filename + 'Airport airlines.db')
 Terminal.read(filename + 'Airport airlines.db')
@@ -69,5 +76,5 @@ def userlogin():
     return apps_userlogin()
 
 if __name__ == '__main__':
-    app.run(debug=True, use_reloader=False)
+    app.run(debug=True)
     

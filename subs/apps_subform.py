@@ -48,6 +48,16 @@ def apps_subform(cname=""):
             elif option == "insert":
                 butshow = "disabled"
                 butedit = "enabled"
+            elif option == "goto":
+                search_id = request.args.get("search_id", "").strip()
+                if search_id:
+                    try:
+                        sid = int(search_id)
+                        if sid in cl.lst:
+                            cl.pos = cl.lst.index(sid)
+                    except ValueError:
+                        if search_id in cl.lst:
+                            cl.pos = cl.lst.index(search_id)
             elif option == 'cancel':
                 pass
             elif option == "first":
